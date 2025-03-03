@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import workflow from "../../public/images/workflow.avif";
-import darkWorkflow from "../../public/images/workflow-dark.avif";
 import templateLibrary from "../../public/images/template-library.avif";
 import globalTeam from "../../public/images/global-teams.avif";
 
