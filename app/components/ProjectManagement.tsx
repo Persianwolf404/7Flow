@@ -13,6 +13,7 @@ const ProjectManagement = () => {
           style={{ fontSize: "48px", fontWeight: "900" }}
           className="text-blue"
         >
+          
           Fully reinvented project management system to help you ship products
           faster
         </h2>
@@ -20,7 +21,7 @@ const ProjectManagement = () => {
           Focus on what matters most, our robots handle the rest ☕️
         </p>
       </div>
-      <Image src={PhoneImage} width={940} height={700} alt={"Phone image"} />
+      <Image src={PhoneImage} width={1520} height={750} alt={"Phone image"} />
     </section>
   );
 };

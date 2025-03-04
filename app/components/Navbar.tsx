@@ -3,6 +3,7 @@ import Button from "./Button";
 
 
 const Navbar = () => {
+
   return (
     <header
       style={{ height: "80px" }}

@@ -3,7 +3,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import styles from "./Carousel.module.scss";
 import Image from "next/image";
-import CarouselImage from "../../public/images/01e83408752bba84aa962ea9e8285175.png";
+import CarouselImage from "../../public/images/carousel.avif";
 
 const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -11,7 +11,7 @@ const Carousel = () => {
     align: "center",
     skipSnaps: false,
   });
-  const [currentIndex, setCurrentIndex] = useState(0); // State to track the active slide
+  const [currentIndex, setCurrentIndex] = useState(0);
   const autoplay = true;
   const delayMs = 5000;
 
@@ -50,13 +50,11 @@ const Carousel = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-
-    emblaApi.on("select", onSelect); // Listen for slide changes
+    emblaApi.on("select", onSelect);
     const intervalId = setInterval(autoplayCallback, delayMs);
-
     return () => {
-      clearInterval(intervalId); // Cleanup interval on component unmount
-      emblaApi.off("select", onSelect); // Cleanup event listener
+      clearInterval(intervalId);
+      emblaApi.off("select", onSelect);
     };
   }, [emblaApi, autoplayCallback, onSelect]);
 
@@ -70,13 +68,14 @@ const Carousel = () => {
                 <Image
                   src={CarouselImage}
                   alt={slide.alt}
+                  width={816}
+                  height={432}
                   className={styles.slideImage}
                 />
               </div>
             ))}
           </div>
         </div>
-     
         <div className={styles.dotsContainer}>
           {slides.map((_, index) => (
             <div
