@@ -32,8 +32,8 @@ const Hero = () => {
     <section className="w-100">
       <section className="py-6 d-flex justify-content-between">
         <div className="d-flex flex-column" style={{ width: "576px" }}>
-          <h1 className="text-blue fs-1 fw-bold">
-            Manage your daily tasks better without all the <br /> stress.
+          <h1 style={{fontWeight: '900', lineHeight: '56.4px'}} className="text-blue fs-1 ">
+            Manage your daily tasks better without all the stress.
           </h1>
           <p className="mt-5 mb-7 fs-4 text-gray">
             Change the way you manage your tasks with our revolutionary project

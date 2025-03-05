@@ -20,7 +20,7 @@ const Navbar = () => {
           <li>Currencies</li>
         </ul>
         <div className="ms-auto">
-          <button className="bg-transparent border-0 fs-6 fw-bold text-midnight-gray">
+          <button className="bg-transparent border-0 fs-6 fw-bold text-midnight-gray ">
             Sign in
           </button>
           <Button className="ms-7">Get Started</Button>

@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} ${publicSans.variable}`}>
-      <body className="bg-background ">
+      <body className="bg-background public-sans">
         <Navbar />
         <div className="container">{children}</div>
         <Footer />
