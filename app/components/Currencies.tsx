@@ -1,16 +1,44 @@
-"use client"; 
+"use client";
+
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import moment from "moment-jalaali";
 import Image from "next/image";
 
-const CACHE_DURATION = 60 * 1000;
+const CACHE_DURATION = 60 * 1000; // 1 minute
+const CACHE_KEY = "coinCache";
+
+interface Coin {
+  id: string;
+  symbol: string;
+  name: string;
+  image: string;
+  current_price: number;
+  market_cap: number;
+  market_cap_rank: number;
+  last_updated: string;
+}
+
+const getCachedData = (): Coin[] | null => {
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (!cached) return null;
+  const { data, timestamp } = JSON.parse(cached);
+  if (Date.now() - timestamp < CACHE_DURATION) return data;
+  localStorage.removeItem(CACHE_KEY);
+  return null;
+};
+
+const setCachedData = (data: Coin[]) => {
+  localStorage.setItem(
+    CACHE_KEY,
+    JSON.stringify({ data, timestamp: Date.now() })
+  );
+};
 
 const Currencies = () => {
-  const [coins, setCoins] = useState<any[]>([]);
+  const [coins, setCoins] = useState<Coin[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const cacheRef = useRef<{ data: any[]; timestamp: number } | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const lastElementRef = useCallback(
@@ -29,29 +57,19 @@ const Currencies = () => {
     [isLoading, hasMore]
   );
 
-  const fetchCoins = useCallback(async (pageNum: number) => {
-    // Check cache first
-    if (
-      cacheRef.current &&
-      Date.now() - cacheRef.current.timestamp < CACHE_DURATION
-    ) {
-      return cacheRef.current.data;
-    }
+  const fetchCoins = useCallback(async (pageNum: number): Promise<Coin[]> => {
+    const cachedData = getCachedData();
+    if (cachedData && pageNum === 1) return cachedData;
 
     setIsLoading(true);
     try {
       const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=${pageNum}`,
-        { cache: "no-store" } // Disable browser caching
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=80&page=${pageNum}`,
+        { cache: "no-store" }
       );
-      const newCoins = await res.json();
+      const newCoins: Coin[] = await res.json();
 
-      // Update cache
-      cacheRef.current = {
-        data: newCoins,
-        timestamp: Date.now(),
-      };
-
+      if (pageNum === 1) setCachedData(newCoins);
       return newCoins;
     } catch (error) {
       console.error("Error fetching coins:", error);
@@ -61,20 +79,25 @@ const Currencies = () => {
     }
   }, []);
 
-  // Initial fetch and page load
   useEffect(() => {
     fetchCoins(page).then((newCoins) => {
-      setCoins((prev) => [...prev, ...newCoins]);
-      setHasMore(newCoins.length === 20); // Assuming 80 is the per_page limit
+      setCoins((prev) => {
+        // Prevent duplicates when appending new pages
+        const existingIds = new Set(prev.map((coin) => coin.id));
+        const filteredNewCoins = newCoins.filter(
+          (coin) => !existingIds.has(coin.id)
+        );
+        return [...prev, ...filteredNewCoins];
+      });
+      setHasMore(newCoins.length === 80);
     });
   }, [page, fetchCoins]);
 
-  // Refresh cache every minute
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      cacheRef.current = null; // Clear cache
-      setPage(1); // Reset to first page
-      setCoins([]); // Clear current coins
+      localStorage.removeItem(CACHE_KEY);
+      setPage(1);
+      setCoins([]);
     }, CACHE_DURATION);
 
     return () => clearInterval(refreshInterval);
@@ -86,7 +109,7 @@ const Currencies = () => {
 
   return (
     <div style={{ maxHeight: "650px" }} className="overflow-y-auto no-scroll">
-      {coins.map((coin: any, index: number) => {
+      {coins.map((coin, index) => {
         const isLastElement = coins.length === index + 1;
         return (
           <div
