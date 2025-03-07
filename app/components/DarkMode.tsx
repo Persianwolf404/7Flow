@@ -1,32 +1,63 @@
-"use client"
-import React, { useEffect, useState } from "react";
+// components/DarkModeToggle.tsx
+"use client";
 
-const DarkMode = () => {
-  const [theme, setTheme] = useState("light");
+import { useEffect, useState } from "react";
+import { parseCookies, setCookie } from "nookies";
+
+export default function DarkModeToggle() {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check for saved theme on component mount
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-bs-theme", savedTheme);
-    setTheme(savedTheme);
+    // Check both localStorage and cookies on first load
+    const savedMode = localStorage.getItem("darkMode") === "true";
+    const cookies = parseCookies();
+    const cookieMode = cookies.darkMode === "true";
+
+    // Use localStorage value if available, otherwise use cookie
+    const currentMode =
+      localStorage.getItem("darkMode") !== null ? savedMode : cookieMode;
+
+    setIsDarkMode(currentMode);
+
+    // Apply theme class
+    if (currentMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    setIsLoaded(true);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-bs-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    setTheme(newTheme);
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+
+    // Update localStorage
+    localStorage.setItem("darkMode", newMode.toString());
+
+    // Update cookie for SSR
+    setCookie(null, "darkMode", newMode.toString(), {
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      path: "/",
+    });
+
+    // Update DOM
+    if (newMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   };
 
   return (
     <button
-      onClick={toggleTheme}
-      className="bg-transparent border-0"
-      aria-label="Toggle theme"
+      onClick={toggleDarkMode}
+      className="px-3 py-1 rounded bg-opacity-20 hover:bg-opacity-30 transition-all"
+      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      {isDarkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
     </button>
   );
-};
-
-export default DarkMode;
+}

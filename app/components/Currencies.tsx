@@ -11,8 +11,9 @@ import moment from "moment-jalaali";
 import { Spinner } from "react-bootstrap";
 import Button from "./Button";
 import Image from "next/image";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Modal from "./Modal"; // Create this component
 
-// Increased cache duration to 10 minutes for less volatile data
 const CACHE_DURATION = 10 * 60 * 1000;
 const CACHE_KEY = "coinCache";
 const PAGINATION_CACHE_KEY = "coinPaginationCache";
@@ -71,6 +72,60 @@ const Currencies = () => {
   const [hasMore, setHasMore] = useState(true);
   const [showLoadMore, setShowLoadMore] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
+  const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
+  const pathname = usePathname();
+
+  // Check URL for coin symbol on initial load and when URL changes
+  useEffect(() => {
+    const urlParts = pathname?.split("/") || [];
+    const coinSymbol = urlParts[urlParts.length - 1];
+
+    // If we have a coin symbol in the URL and it's not the base path
+    if (coinSymbol && coinSymbol !== "currencies") {
+      // Find the coin with this symbol
+      const matchedCoin = coins.find(
+        (c) => c.symbol.toLowerCase() === coinSymbol.toLowerCase()
+      );
+      if (matchedCoin) {
+        setSelectedCoin(matchedCoin);
+      }
+    } else if (selectedCoin && pathname === "/currencies") {
+      // If we're back at the base path, close the modal
+      setSelectedCoin(null);
+    }
+  }, [pathname, coins]);
+
+  const openModal = (coin: Coin) => {
+    setSelectedCoin(coin);
+    window.history.pushState({}, "", `/currencies/${coin.symbol}`);
+  };
+
+  const closeModal = () => {
+    setSelectedCoin(null);
+    window.history.pushState({}, "", "/currencies");
+  };
+
+  // Handle back/forward browser navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const urlParts = window.location.pathname.split("/");
+      const coinSymbol = urlParts[urlParts.length - 1];
+
+      if (coinSymbol && coinSymbol !== "currencies") {
+        const matchedCoin = coins.find(
+          (c) => c.symbol.toLowerCase() === coinSymbol.toLowerCase()
+        );
+        if (matchedCoin) {
+          setSelectedCoin(matchedCoin);
+        }
+      } else {
+        setSelectedCoin(null);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [coins]);
 
   // In-memory cache for API responses
   const apiCache = useRef<Record<string, { data: Coin[]; timestamp: number }>>(
@@ -211,7 +266,9 @@ const Currencies = () => {
           className="fs-7 py-2 d-grid align-items-center pe-3 ps-5 py-4 text-charcoal-blue"
           style={{
             gridTemplateColumns: "71px 1fr 150px 215px",
+            cursor: "pointer",
           }}
+          onClick={() => openModal(coin)}
         >
           <span className="fw-bold text-steel-gray">{index + 1}</span>
           <span className="fw-semibold d-flex align-items-center gap-2">
@@ -220,10 +277,10 @@ const Currencies = () => {
               alt={coin.name}
               width={32}
               height={32}
-              style={{ borderRadius: "50%" }}
+              className="rounded-circle"
             />
             {coin.name}{" "}
-            <span className="text-steel-gray">{coin.symbol.toUpperCase()}</span>
+            <span className="text-steel-gray kos">{coin.symbol.toUpperCase()}</span>
           </span>
           <span className="fw-semibold text-center">
             {coin.current_price.toLocaleString()}
@@ -242,7 +299,7 @@ const Currencies = () => {
       className="overflow-y-auto no-scroll d-flex flex-column"
     >
       {memoizedCoinsList}
-
+      {selectedCoin && <Modal coin={selectedCoin} onClose={closeModal} />}
       <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
         {isLoading && <Spinner className="m-auto" />}
         {showLoadMore && !isLoading && (
