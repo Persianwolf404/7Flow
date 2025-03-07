@@ -32,7 +32,10 @@ const Hero = () => {
     <section className="w-100">
       <section className="py-6 d-flex justify-content-between">
         <div className="d-flex flex-column" style={{ width: "576px" }}>
-          <h1 style={{fontWeight: '900', lineHeight: '56.4px'}} className="text-blue fs-1 ">
+          <h1
+            style={{ fontWeight: "900", lineHeight: "56.4px" }}
+            className="text-blue fs-1 "
+          >
             Manage your daily tasks better without all the stress.
           </h1>
           <p className="mt-5 mb-7 fs-4 text-gray">
@@ -56,16 +59,15 @@ const Hero = () => {
         />
       </section>
       <section className="w-100 py-6 d-flex align-items-center flex-column">
-        <h2 className="text-dark-gray fs-2 fw-bold mb-3">
+        <h2 className="text-dark-gray fs-2 fw-bolder mb-3">
           Get more done in <span className="text-green">less time</span>
         </h2>
         <p className="fs-4 text-gray mb-6">Simple, fast, effortlessly.</p>
-
         <div className="d-flex gap-9">
           {features.map((feature, index) => (
             <div key={index} className="d-flex align-items-center gap-4">
               <div
-                className="rounded-pill d-flex justify-content-center align-items-center"
+                className="rounded-circle d-flex justify-content-center align-items-center"
                 style={{
                   width: "64px",
                   height: "64px",
@@ -74,7 +76,7 @@ const Hero = () => {
               >
                 {feature.icon}
               </div>
-              <h6 className="fw-bold text-dark-blue">{feature.title}</h6>
+              <h6 className="fw-bolder text-dark-blue">{feature.title}</h6>
             </div>
           ))}
         </div>

@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/moment-jalaali": "^0.7.9",
     "bootstrap": "^5.3.3",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
+    "moment-jalaali": "^0.10.4",
     "next": "15.2.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",

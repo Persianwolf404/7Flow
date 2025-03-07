@@ -15,7 +15,7 @@ const FeatureShowcase = () => {
           width={528}
           height={528}
           alt="Task management dashboard preview"
-          className="rounded-pill"
+          className="rounded-circle"
           style={{
             boxShadow: "-12px 0px 24px rgba(33, 64, 212, 0.25)",
           }}
@@ -51,7 +51,7 @@ const FeatureShowcase = () => {
           width={528}
           height={528}
           alt="Task management dashboard preview"
-          className="rounded-pill"
+          className="rounded-circle"
           style={{
             boxShadow: "-12px 0px 24px rgb(255, 153, 0, 0.35)",
           }}
@@ -63,7 +63,7 @@ const FeatureShowcase = () => {
           width={528}
           height={528}
           alt="Task management dashboard preview"
-          className="rounded-pill"
+          className="rounded-circle"
           style={{
             boxShadow: "-12px 0px 24px rgba(251, 83, 146, 0.25)",
           }}

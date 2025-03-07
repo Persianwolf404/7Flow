@@ -1,10 +1,17 @@
 import React from "react";
 import Button from "./Button";
 import { IoIosArrowForward } from "react-icons/io";
+import { FaInstagram } from "react-icons/fa";
+import { LuTwitter } from "react-icons/lu";
+import { SlSocialFacebook } from "react-icons/sl";
+import DarkMode from "./DarkMode";
 
 const Footer = () => {
   return (
-    <section className="container py-6 public-sans">
+    <section
+      data-bs-theme="dark"
+      className="container bg-background public-sans"
+    >
       <div
         style={{
           height: "432px",
@@ -12,7 +19,7 @@ const Footer = () => {
           borderRadius: "56px",
           backgroundColor: "#BED0FF",
         }}
-        className="w-100 d-flex align-items-center justify-content-center flex-column px-8"
+        className="w-100 my-6 d-flex align-items-center justify-content-center flex-column px-8"
       >
         <h2 style={{ fontWeight: "900" }} className="text-blue w-100 fs-2 mb-5">
           Risk-free 30 day trial to <br />{" "}
@@ -32,6 +39,57 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <div
+        style={{ width: "1025px" }}
+        className="pt-6 d-flex mx-auto justify-content-between "
+      >
+        <div className="d-flex flex-column">
+          <div className="montserrat text-green fw-bolder fs-4 ">
+            7<span className="text-blue">flow</span>.
+          </div>
+          <DarkMode />
+        </div>
+        <div className="d-flex gap-7 fw-bolder fs-6 text-midnight-gray">
+          <div className="d-flex gap-4 flex-column">
+            <span>Pricing</span>
+            <span>How it Works</span>
+            <span>FAQ</span>
+          </div>
+          <div className="d-flex gap-4 flex-column">
+            <span>Terms of Service</span>
+            <span>Privacy Policy</span>
+          </div>
+        </div>
+        <div>
+          <div className="d-flex gap-5 text-green">
+            <span
+              style={{ border: "2px solid rgba(8, 192, 86, 0.24)" }}
+              className="rounded-circle p-2"
+            >
+              <FaInstagram className="fs-4 " />
+            </span>
+            <span
+              style={{ border: "2px solid rgba(8, 192, 86, 0.24)" }}
+              className="rounded-circle p-2"
+            >
+              <LuTwitter className="fs-4 " />
+            </span>
+            <span
+              style={{ border: "2px solid rgba(8, 192, 86, 0.24)" }}
+              className="rounded-circle p-2"
+            >
+              <SlSocialFacebook className="fs-4" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <h6 className="fw-bolder text-gray mt-7 mb-6 text-center">
+        Made with ❤️ for{" "}
+        <a href="https://7ho.st/" target="_blank">
+          7ho.st
+        </a>{" "}
+        By Mohamad Shayanfar
+      </h6>
     </section>
   );
 };

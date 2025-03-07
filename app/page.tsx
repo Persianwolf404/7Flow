@@ -6,7 +6,7 @@ import FAQ from "./components/FAQ";
 
 export default function Home() {
   return (
-    <div>
+    <div className="container">
       <Hero />
       <FeatureShowcase />
       <Carousel />

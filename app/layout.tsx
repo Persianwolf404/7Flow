@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} ${publicSans.variable}`}>
       <body className="bg-background public-sans">
         <Navbar />
-        <div className="container">{children}</div>
+        {children}
         <Footer />
       </body>
     </html>

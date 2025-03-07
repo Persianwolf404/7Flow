@@ -8,22 +8,76 @@ $theme-colors: (
   "midnight-gray": #4c5d77,
   "dark-gray": #4f4f4f,
   "gray": #7e8186,
+  "steel-gray": #777e90,
   "sky-blue": #bed0ff,
   "light-blue": #20daf1,
-  "orange": rgb(255, 153, 0),
-  "red": rgb(251, 83, 146),
+  "orange": #ff9900,
+  "red": #fb5392,
+  "pink": #decbe9,
+  "cream": #ededed,
+  "charcoal-blue": #23262f,
 );
 
-// 🏗️ Container overrides
+// Merge custom colors with Bootstrap's default theme colors
+
+// Container overrides (fixed ascending order)
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
   xl: 1100px,
-  xxl: 1100px,
+  xxl: 1140px
+    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 );
 
-/* styles/globals.css */
+// Custom spacing scale
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 3rem,
+  7: 4rem,
+  8: 5rem,
+  9: 6.25rem,
+  10: 7.5rem,
+  11: 8.75rem,
+  12: 10rem,
+  13: 11.25rem,
+  14: 12.5rem,
+  15: 13.75rem,
+  16: 15.7rem,
+  17: 16.25rem,
+  18: 17.5rem,
+  19: 18.75rem,
+  20: 20rem,
+  21: 21.25rem,
+  22: 29.37rem,
+);
+
+// Custom font sizes
+$font-sizes: (
+  1: 3rem,
+  2: 2.25rem,
+  3: 1.75rem,
+  4: 1.5rem,
+  5: 1.25rem,
+  6: 1rem,
+  7: 0.87rem,
+  8: 0.75rem,
+);
+.no-scroll {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+// Custom styles remain unchanged
 .embla {
   overflow: hidden;
   width: 100%;
@@ -32,12 +86,15 @@ $container-max-widths: (
 .embla__container {
   display: flex;
 }
+a {
+  text-decoration: none !important;
+}
 
 .embla__slide {
   position: relative;
   min-width: 100%;
   flex: 0 0 auto;
-  height: 300px; /* Adjust height as needed */
+  height: 300px;
 }
 
 .text {
@@ -49,101 +106,37 @@ $container-max-widths: (
   font-weight: bold;
 }
 
-// 🧢 Custom Spacing Scale (padding, margin)
-$spacers: (
-  0: 0,
-  1: 0.25rem,
-  // 4px
-  2: 0.5rem,
-  // 8px
-  3: 1rem,
-  // 16px
-  4: 1.5rem,
-  // 24px
-  5: 2rem,
-  // 32px
-  6: 3rem,
-  // 48px
-  7: 4rem,
-  // 64px
-  8: 5rem,
-  // 80px
-  9: 6.25rem,
-  // 100px
-  10: 7.5rem,
-  // 120px
-  11: 8.75rem,
-  // 140px
-  12: 10rem,
-  // 160px
-  13: 11.25rem,
-  // 180px
-  14: 12.5rem,
-  // 200px
-  15: 13.75rem,
-  // 220px
-  16: 15rem,
-  // 240px
-  17: 16.25rem,
-  // 260px
-  18: 17.5rem,
-  // 280px
-  19: 18.75rem,
-  // 300px
-  20: 20rem,
-  // 320px
-  21: 21.25rem,
-  // 340px
-);
-$font-sizes: (
-  1: 3rem,
-  // 40px
-  2: 2.25rem,
-  // 32px
-  3: 1.75rem,
-  // 28px
-  4: 1.5rem,
-  // 24px
-  5: 1.25rem,
-  // 20px
-  6: 1rem,
-  // 16px
-);
-
 .image-container {
   position: relative;
   overflow: hidden;
 }
 
-/* The actual image */
+.image-container {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to right, var(--bs-background), #ffffff00);
+    z-index: 1;
+    pointer-events: none;
+  }
 
-/* Left fade pseudo-element */
-.image-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80px; /* Width of the fade effect */
-  height: 100%;
-  background: linear-gradient(to right, #fafbff, rgba(255, 255, 255, 0));
-  z-index: 1;
-  pointer-events: none; /* Makes it non-interactive */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to left, var(--bs-background), #ffffff00);
+    z-index: 1;
+    pointer-events: none;
+  }
 }
 
-/* Right fade pseudo-element */
-.image-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px; /* Width of the fade effect */
-  height: 100%;
-  background: linear-gradient(to left, #fafbff, rgba(255, 255, 255, 0));
-  z-index: 1;
-  pointer-events: none; /* Makes it non-interactive */
-}
-
-// 🎨 Fonts
 .montserrat {
   font-family: var(--font-montserrat), sans-serif;
 }
@@ -151,9 +144,10 @@ $font-sizes: (
 .public-sans {
   font-family: var(--font-public-sans), sans-serif;
 }
+
 .rounded-32 {
   border-radius: 32px !important;
 }
 
-// 🚀 Import Bootstrap last to apply all overrides
+// Import Bootstrap last
 @import "../node_modules/bootstrap/scss/bootstrap";
