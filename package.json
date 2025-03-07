@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/moment-jalaali": "^0.7.9",
     "bootstrap": "^5.3.3",
+    "cloc": "^2.4.0-cloc",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "moment-jalaali": "^0.10.4",
