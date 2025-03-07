@@ -3,12 +3,15 @@ import React from "react";
 const Button = ({
   children,
   className,
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) => {
   return (
     <button
+      onClick={onClick}
       className={`${className?.includes("border") ? "" : "border-0"} ${
         className?.includes("bg") ? "" : "bg-blue"
       } text-background px-5 fw-bolder rounded-32 py-3 fs-6 ${className} `}

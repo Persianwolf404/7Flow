@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import moment from "moment-jalaali";
+import { Spinner } from "react-bootstrap";
+import Button from "./Button";
 import Image from "next/image";
 
 const CACHE_DURATION = 60 * 1000; // 1 minute
 const CACHE_KEY = "coinCache";
+const IMAGE_PER_PAGE = 40;
+const LOAD_MORE_THRESHOLD = 4; // Show button after 4 pages
 
 interface Coin {
   id: string;
@@ -35,15 +39,22 @@ const setCachedData = (data: Coin[]) => {
 };
 
 const Currencies = () => {
+  const delay = (ms: number) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+
   const [coins, setCoins] = useState<Coin[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [showLoadMore, setShowLoadMore] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {
-      if (isLoading) return;
+      if (isLoading || showLoadMore) return;
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
@@ -54,7 +65,7 @@ const Currencies = () => {
 
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasMore]
+    [isLoading, hasMore, showLoadMore]
   );
 
   const fetchCoins = useCallback(async (pageNum: number): Promise<Coin[]> => {
@@ -64,11 +75,11 @@ const Currencies = () => {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=80&page=${pageNum}`,
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${IMAGE_PER_PAGE}&page=${pageNum}`,
         { cache: "no-store" }
       );
       const newCoins: Coin[] = await res.json();
-
+      await delay(3000);
       if (pageNum === 1) setCachedData(newCoins);
       return newCoins;
     } catch (error) {
@@ -82,33 +93,35 @@ const Currencies = () => {
   useEffect(() => {
     fetchCoins(page).then((newCoins) => {
       setCoins((prev) => {
-        // Prevent duplicates when appending new pages
         const existingIds = new Set(prev.map((coin) => coin.id));
         const filteredNewCoins = newCoins.filter(
           (coin) => !existingIds.has(coin.id)
         );
         return [...prev, ...filteredNewCoins];
       });
-      setHasMore(newCoins.length === 80);
+      setHasMore(newCoins.length === IMAGE_PER_PAGE);
+
+      // Show load more button after 4 pages
+      if (page === LOAD_MORE_THRESHOLD && newCoins.length === IMAGE_PER_PAGE) {
+        setShowLoadMore(true);
+      }
     });
   }, [page, fetchCoins]);
 
-  useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      localStorage.removeItem(CACHE_KEY);
-      setPage(1);
-      setCoins([]);
-    }, CACHE_DURATION);
-
-    return () => clearInterval(refreshInterval);
-  }, []);
+  const handleLoadMore = () => {
+    setShowLoadMore(false);
+    setPage((prev) => prev + 1);
+  };
 
   function toShamsiDate(isoDate: string) {
     return moment(isoDate).format("jYYYY/jMM/jDD");
   }
 
   return (
-    <div style={{ maxHeight: "650px" }} className="overflow-y-auto no-scroll">
+    <div
+      style={{ height: "650px" }}
+      className="overflow-y-auto no-scroll d-flex flex-column"
+    >
       {coins.map((coin, index) => {
         const isLastElement = coins.length === index + 1;
         return (
@@ -143,7 +156,15 @@ const Currencies = () => {
           </div>
         );
       })}
-      {isLoading && <div className="text-center py-4">Loading...</div>}
+
+      <div className="w-100 h-100 d-flex flex-column  align-items-center justify-content-center py-4">
+        {isLoading && <Spinner className="m-auto" />}
+        {showLoadMore && !isLoading && (
+          <Button className="px-10" onClick={handleLoadMore}>
+            Show More
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
