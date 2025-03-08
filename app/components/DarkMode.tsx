@@ -1,63 +1,49 @@
-// components/DarkModeToggle.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { useState, useEffect } from "react";
 
-export default function DarkModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+const DarkModeToggle = () => {
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check both localStorage and cookies on first load
-    const savedMode = localStorage.getItem("darkMode") === "true";
-    const cookies = parseCookies();
-    const cookieMode = cookies.darkMode === "true";
+    // Read dark mode from cookies on mount
+    const savedMode = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("darkMode="))
+      ?.split("=")[1];
 
-    // Use localStorage value if available, otherwise use cookie
-    const currentMode =
-      localStorage.getItem("darkMode") !== null ? savedMode : cookieMode;
-
-    setIsDarkMode(currentMode);
-
-    // Apply theme class
-    if (currentMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-    setIsLoaded(true);
+    setDarkMode(savedMode ? JSON.parse(savedMode) : false);
   }, []);
 
-  const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
+  useEffect(() => {
+    // Update cookies when dark mode changes
+    document.cookie = `darkMode=${JSON.stringify(darkMode)}; path=/; max-age=${
+      60 * 60 * 24 * 365
+    }; SameSite=Strict`;
 
-    // Update localStorage
-    localStorage.setItem("darkMode", newMode.toString());
-
-    // Update cookie for SSR
-    setCookie(null, "darkMode", newMode.toString(), {
-      maxAge: 30 * 24 * 60 * 60, // 30 days
-      path: "/",
-    });
-
-    // Update DOM
-    if (newMode) {
-      document.documentElement.classList.add("dark");
+    if (darkMode) {
+      document.body.classList.add("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
     }
-  };
+
+    // Dispatch a custom event to notify other components
+    window.dispatchEvent(new Event("darkModeToggle"));
+  }, [darkMode]);
 
   return (
-    <button
-      onClick={toggleDarkMode}
-      className="px-3 py-1 rounded bg-opacity-20 hover:bg-opacity-30 transition-all"
-      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      {isDarkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
-    </button>
+    <div className="dark-mode-toggle">
+      <label htmlFor="darkModeToggle">
+        Dark Mode:
+        <input
+          type="checkbox"
+          id="darkModeToggle"
+          checked={darkMode}
+          onChange={() => setDarkMode((prev) => !prev)}
+        />
+      </label>
+    </div>
   );
-}
+};
+
+export default DarkModeToggle;

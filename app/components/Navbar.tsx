@@ -5,7 +5,7 @@ import Link from "next/link";
 const Navbar = () => {
   return (
     <header
-      style={{ height: "80px", zIndex: 10 }} // Adding z-index here
+      style={{ height: "80px", zIndex: 10 }}
       className="border-bottom border-cloudy-blue bg-background"
     >
       <div className="container h-100 d-flex align-items-center">

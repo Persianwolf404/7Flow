@@ -3,8 +3,7 @@ import "../styles/customBootstrap.css";
 import Navbar from "./components/Navbar";
 import { Montserrat, Public_Sans } from "next/font/google";
 import Footer from "./components/Footer";
-
-import moment from "moment-jalaali";
+import { cookies } from "next/headers"; // For server-side cookie access
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,17 +22,26 @@ const publicSans = Public_Sans({
   variable: "--font-public-sans",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const savedMode = (await cookieStore).get("darkMode");
+  const initialDarkMode = savedMode ? JSON.parse(savedMode.value) : false;
+  
+  console.log(initialDarkMode);
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${publicSans.variable} dark-mode`}
+      className={`${montserrat.variable} ${publicSans.variable} ${
+        initialDarkMode ? "dark" : ""
+      }`}
     >
       <body className="bg-background public-sans">
+        {/* Wrap content in DarkModeProvider to manage client-side state */}
+
         <Navbar />
         {children}
         <Footer />

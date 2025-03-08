@@ -3,6 +3,7 @@ $theme-colors: (
   "green": #08c056,
   "background": #fafbff,
   "blue": #2140d4,
+  "purple": #7737ff,
   "dark-blue": #00006d,
   "cloudy-blue": #c8d7ff,
   "midnight-gray": #4c5d77,
@@ -15,15 +16,64 @@ $theme-colors: (
   "red": #fb5392,
   "pink": #decbe9,
   "cream": #ededed,
+  "soft-blue": #bed0ff,
+  "ocean-blue": #0445b1,
+  "faq-border": #e5e5ea,
+  "brown": #212121,
+  "bone": #858383,
 );
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+.dark {
+  $theme-colors: (
+    "background": #222222,
+    "blue": #4f81ff,
+    "dark-blue": #cdcdff,
+    "cloudy-blue": #383d49,
+    "ocean-blue": #85b3ff,
+    "soft-blue": #292b33,
+    "midnight-gray": #81a2d2,
+    "dark-gray": #c1c1c1,
+    "gray": #c8ced6,
+    "steel-gray": #777e90,
+    "sky-blue": #60677a,
+    "light-blue": #20daf1,
+    "orange": #ff9900,
+    "red": #fb5392,
+    "pink": #decbe9,
+    "cream": #434343,
+    "faq-border": #5c5c5c,
+    "brown": #dddddd,
+    "bone": #c8ced6,
+  );
+
+  /* redefine theme color variables */
+  @each $color, $value in $theme-colors {
+    --#{$variable-prefix}#{$color}: #{$value};
+  }
+
+  /* redefine theme color rgb vars (used for bg- colors) */
+  $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+  @each $color, $value in $theme-colors-rgb {
+    --#{$variable-prefix}#{$color}-rgb: #{$value};
+  }
+
+  $body-color: #eeeeee;
+  $body-bg: #263c5c;
+
+  --#{$variable-prefix}body-color: #{$body-color};
+  --#{$variable-prefix}body-bg: #{$body-bg};
+}
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
   xl: 1100px,
-  xxl: 1100px
-    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  xxl: 1100px,
 );
 
 // Custom spacing scale
@@ -61,7 +111,7 @@ $font-sizes: (
   4: 1.5rem,
   5: 1.25rem,
   6: 1rem,
-  7: 0.87,
+  7: 0.87rem,
   8: 0.75rem,
 );
 
@@ -73,6 +123,132 @@ $font-sizes: (
 
 .embla__container {
   display: flex;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 100%;
+  flex: 0 0 auto;
+  height: 300px;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to right, var(--bs-background), #ffffff00);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to left, var(--bs-background), #ffffff00);
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.montserrat {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.public-sans {
+  font-family: var(--font-public-sans), sans-serif;
+}
+
+.rounded-32 {
+  border-radius: 32px !important;
+}
+
+// Import Bootstrap last
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// 🪄 Merge your colors into Bootstrap theme
+// Merge custom colors with Bootstrap's default theme colors
+
+// Container overrides (fixed ascending order)
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1100px,
+  xxl: 1140px
+    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+);
+
+// Custom spacing scale
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 3rem,
+  7: 4rem,
+  8: 5rem,
+  9: 6.25rem,
+  10: 7.5rem,
+  11: 8.75rem,
+  12: 10rem,
+  13: 11.25rem,
+  14: 12.5rem,
+  15: 13.75rem,
+  16: 15.7rem,
+  17: 16.25rem,
+  18: 17.5rem,
+  19: 18.75rem,
+  20: 20rem,
+  21: 21.25rem,
+  22: 29.37rem,
+);
+
+// Custom font sizes
+$font-sizes: (
+  1: 3rem,
+  2: 2.25rem,
+  3: 1.75rem,
+  4: 1.5rem,
+  5: 1.25rem,
+  6: 1rem,
+  7: 0.87rem,
+  8: 0.75rem,
+);
+.no-scroll {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+// Custom styles remain unchanged
+.embla {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+}
+a {
+  text-decoration: none !important;
 }
 
 .embla__slide {

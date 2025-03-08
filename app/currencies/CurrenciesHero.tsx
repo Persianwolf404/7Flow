@@ -9,11 +9,11 @@ const CurrenciesHero = () => {
     >
       <div className="container d-flex justify-content-between align-items-center">
         <div className="d-flex flex-column gap-4">
-          <h1 style={{ fontWeight: "900" }}>
+          <h1 style={{ fontWeight: "900", color: "#23262F" }}>
             Today’s Cryptocurrency <br />
             prices
           </h1>
-          <p className="fs-5">
+          <p style={{ color: "#353945" }} className="fs-5">
             The global crypto market cap is{" "}
             <span className="fw-bold">$1.86T</span>
           </p>

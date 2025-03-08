@@ -48,9 +48,12 @@ const faqData = [
 const FAQ = () => {
   return (
     <section className="py-6">
-      <Accordion defaultActiveKey="0" className="custom-accordion">
+      <Accordion
+        defaultActiveKey="0"
+        className="custom-accordion text-bone bg-cream"
+      >
         <div className="w-100 d-flex flex-column align-items-center">
-          <h3 className="mb-4">FAQ</h3>
+          <h3 className="mb-4 text-brown">FAQ</h3>
           <p className="fs-6">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -59,9 +62,15 @@ const FAQ = () => {
         </div>
 
         {faqData.map((item, index) => (
-          <Accordion.Item eventKey={`${index}`} key={index}>
-            <Accordion.Header>{item.question}</Accordion.Header>
-            <Accordion.Body>{item.answer}</Accordion.Body>
+          <Accordion.Item
+            className="bg-transparent border-0 border-bottom border-faq-border"
+            eventKey={`${index}`}
+            key={index}
+          >
+            <Accordion.Header>
+              <span className="text-brown">{item.question}</span>
+            </Accordion.Header>
+            <Accordion.Body className="text-bone">{item.answer}</Accordion.Body>
           </Accordion.Item>
         ))}
       </Accordion>

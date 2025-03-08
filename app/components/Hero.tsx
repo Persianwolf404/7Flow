@@ -46,7 +46,7 @@ const Hero = () => {
             <Button className="bg-green d-flex align-items-center">
               Get Started <IoIosArrowForward className="ms-6 fs-5" />
             </Button>
-            <Button className="bg-transparent text-blue border border-2 border-sky-blue py-3">
+            <Button className="bg-transparent text-blue px-7 border border-2 border-sky-blue py-3">
               Schedule a Demo
             </Button>
           </div>

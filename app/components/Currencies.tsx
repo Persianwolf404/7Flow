@@ -280,7 +280,9 @@ const Currencies = () => {
               className="rounded-circle"
             />
             {coin.name}{" "}
-            <span className="text-steel-gray kos">{coin.symbol.toUpperCase()}</span>
+            <span className="text-steel-gray ">
+              {coin.symbol.toUpperCase()}
+            </span>
           </span>
           <span className="fw-semibold text-center">
             {coin.current_price.toLocaleString()}

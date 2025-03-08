@@ -41,7 +41,10 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={`${styles.modal} bg-cream`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="d-flex justify-content-between mb-7">
           <button
             type="button"

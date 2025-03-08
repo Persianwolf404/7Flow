@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaInstagram } from "react-icons/fa";
@@ -7,19 +9,43 @@ import { SlSocialFacebook } from "react-icons/sl";
 import DarkMode from "./DarkMode";
 
 const Footer = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Read dark mode from cookies
+    const savedMode = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("darkMode="))
+      ?.split("=")[1];
+
+    setDarkMode(savedMode ? JSON.parse(savedMode) : false);
+
+    // Listen for dark mode toggle events
+    const handleStorageChange = () => {
+      const updatedMode = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("darkMode="))
+        ?.split("=")[1];
+
+      setDarkMode(updatedMode ? JSON.parse(updatedMode) : false);
+    };
+
+    window.addEventListener("darkModeToggle", handleStorageChange);
+    return () =>
+      window.removeEventListener("darkModeToggle", handleStorageChange);
+  }, []);
+
   return (
-    <section
-      data-bs-theme="dark"
-      className="container bg-background public-sans"
-    >
+    <section className="container bg-background public-sans">
       <div
         style={{
           height: "432px",
-          backgroundImage: "url('/images/pattern.avif')",
+          backgroundImage: `url('/images/${
+            darkMode ? "pattern-dark" : "pattern"
+          }.svg')`,
           borderRadius: "56px",
-          backgroundColor: "#BED0FF",
         }}
-        className="w-100 my-6 d-flex align-items-center justify-content-center flex-column px-8"
+        className="w-100 my-6 d-flex align-items-center bg-soft-blue bg-sky justify-content-center flex-column px-8"
       >
         <h2 style={{ fontWeight: "900" }} className="text-blue w-100 fs-2 mb-5">
           Risk-free 30 day trial to <br />{" "}
@@ -27,7 +53,7 @@ const Footer = () => {
           productivity.
         </h2>
         <div className="d-flex justify-content-between w-100">
-          <p style={{ color: "#0445B1" }} className="fs-4">
+          <p className="fs-4 text-ocean-blue">
             Get started now and take advantage of our 30 day free trial <br />
             today. No credit card required.
           </p>

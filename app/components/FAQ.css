@@ -1,12 +1,5 @@
-.custom-accordion .accordion-item {
-  border: none;
-  overflow: hidden;
-  background-color: transparent;
-  border-bottom: 1px solid #dadadf;
-  border-radius: 0;
-}
 .custom-accordion .accordion-item:last-child {
-  border: none;
+  border: none !important;
 }
 .custom-accordion .accordion-header {
   margin: 0;
@@ -18,19 +11,16 @@
 .custom-accordion .accordion-button {
   background-color: transparent;
   padding: 22px 8px !important;
-  color: #212121;
 }
 
 .custom-accordion .accordion-body {
   font-size: 16px;
-  color: #858383;
   padding: 0 8px;
   padding-bottom: 8px;
   font-weight: 300;
 }
 
 .custom-accordion {
-  background-color: #ededed;
   border-radius: 56px;
   overflow: hidden;
   padding: 56px;
