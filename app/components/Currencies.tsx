@@ -11,7 +11,7 @@ import moment from "moment-jalaali";
 import { Spinner } from "react-bootstrap";
 import Button from "./Button";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Modal from "./Modal"; // Create this component
 
 const CACHE_DURATION = 10 * 60 * 1000;
