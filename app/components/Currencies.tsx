@@ -78,7 +78,6 @@ const Currencies = () => {
   const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
   const pathname = usePathname();
 
-  // Check URL for coin symbol on initial load and when URL changes
   useEffect(() => {
     const urlParts = pathname?.split("/") || [];
     const coinSymbol = urlParts[urlParts.length - 1];
@@ -96,7 +95,7 @@ const Currencies = () => {
       // If we're back at the base path, close the modal
       setSelectedCoin(null);
     }
-  }, [pathname, coins]);
+  }, [pathname, coins, selectedCoin]); // Add selectedCoin here
 
   const openModal = (coin: Coin) => {
     setSelectedCoin(coin);
