@@ -6,11 +6,14 @@
   font-size: 16px;
   font-weight: bold;
   margin-top: 8px;
+
 }
 
 .custom-accordion .accordion-button {
   background-color: transparent;
   padding: 22px 8px !important;
+  display: flex;
+  
 }
 
 .custom-accordion .accordion-body {
@@ -20,11 +23,6 @@
   font-weight: 300;
 }
 
-.custom-accordion {
-  border-radius: 56px;
-  overflow: hidden;
-  padding: 56px;
-}
 .custom-accordion div h3 {
   font-weight: 900;
   font-size: 32;
@@ -34,6 +32,7 @@
   text-align: center;
   font-size: 18px;
   font-weight: 500;
+
   color: #858383;
 }
 
@@ -41,6 +40,8 @@
   background-color: transparent;
   border: none;
   box-shadow: none;
+  display: flex;
+  justify-content: space-between;
 }
 
 .custom-accordion .accordion-button:focus {
@@ -54,21 +55,5 @@
 }
 
 .custom-accordion .accordion-button::after {
-  flex-shrink: 0;
-  width: var(--bs-accordion-btn-icon-width);
-  height: var(--bs-accordion-btn-icon-width);
-  margin-left: auto;
-  content: "";
-  background-image: var(--bs-accordion-btn-icon);
-  background-repeat: no-repeat;
-  background-size: var(--bs-accordion-btn-icon-width);
-  transition: var(--bs-accordion-btn-icon-transition);
-  /* background-color: red; */
+  display: none;
 }
-
-/* .custom-accordion .accordion-button:not(.collapsed)::after {
-  content: "−";
-  font-size: 24px;
-  font-weight: bold;
-  color: #212121;
-}  */

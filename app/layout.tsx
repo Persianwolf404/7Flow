@@ -30,7 +30,7 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const savedMode = (await cookieStore).get("darkMode");
   const initialDarkMode = savedMode ? JSON.parse(savedMode.value) : false;
-  
+
   console.log(initialDarkMode);
   return (
     <html
@@ -40,8 +40,6 @@ export default async function RootLayout({
       }`}
     >
       <body className="bg-background public-sans">
-        {/* Wrap content in DarkModeProvider to manage client-side state */}
-
         <Navbar />
         {children}
         <Footer />

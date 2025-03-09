@@ -6,12 +6,14 @@ import FAQ from "./components/FAQ";
 
 export default function Home() {
   return (
-    <div className="container">
-      <Hero />
-      <FeatureShowcase />
-      <Carousel />
-      <ProjectManagement />
+    <>
+      <div className="container">
+        <Hero />
+        <FeatureShowcase />
+        <Carousel />
+        <ProjectManagement />
+      </div>
       <FAQ />
-    </div>
+    </>
   );
 }

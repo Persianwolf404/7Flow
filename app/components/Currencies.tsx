@@ -48,6 +48,9 @@ const setCachedData = (data: Coin[]) => {
   );
 };
 
+// function delay(ms: number) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 // Cache functions for pagination data
 const getCachedPaginationData = (page: number): Coin[] | null => {
   const cached = localStorage.getItem(`${PAGINATION_CACHE_KEY}_${page}`);
@@ -153,9 +156,11 @@ const Currencies = () => {
 
   const fetchFreshData = async (pageNum: number): Promise<Coin[]> => {
     setIsLoading(true);
+
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=${IMAGE_PER_PAGE}&page=${pageNum}`;
     if (url in pendingRequests.current) {
       const result = await pendingRequests.current[url];
+
       setIsLoading(false);
       return result;
     }
@@ -259,50 +264,55 @@ const Currencies = () => {
   const memoizedCoinsList = useMemo(() => {
     return coins.map((coin, index) => {
       const isLastElement = coins.length === index + 1;
+      // Add name truncation logic
+      const displayName =
+        coin.name.length > 15 ? `${coin.name.substring(0, 7)}...` : coin.name;
+
       return (
         <div
           key={`${coin.id}-${index}`}
           ref={isLastElement ? lastElementRef : null}
-          className="fs-7 py-2 d-grid align-items-center pe-3 ps-5 py-4 text-charcoal-blue"
           style={{
-            gridTemplateColumns: "71px 1fr 150px 215px",
             cursor: "pointer",
+            minHeight: "64px",
           }}
           onClick={() => openModal(coin)}
+          className="d-flex fs-7 text-charcoal-blue pe-3 align-items-center ps-5  "
         >
-          <span className="fw-bold text-steel-gray">{index + 1}</span>
-          <span className="fw-semibold d-flex align-items-center gap-2">
-            <Image
-              src={coin.image}
-              alt={coin.name}
-              width={32}
-              height={32}
-              className="rounded-circle"
-            />
-            {coin.name}{" "}
-            <span className="text-steel-gray ">
-              {coin.symbol.toUpperCase()}
+          <span className="fw-bold text-steel-gray col-1">{index + 1}</span>
+          <div className="col-6 ">
+            <span className="fw-semibold align-items-center gap-2 ">
+              <Image
+                src={coin.image}
+                alt={"img"}
+                width={32}
+                height={32}
+                className="rounded-circle me-3"
+              />
+              {displayName}
+              <span className="text-steel-gray ms-1">
+                {coin.symbol.toUpperCase()}
+              </span>
             </span>
-          </span>
-          <span className="fw-semibold text-center">
+          </div>
+          <span className="fw-semibold text-center col-3">
             {coin.current_price.toLocaleString()}
           </span>
-          <span className="fw-semibold text-end">
+          <span className="fw-semibold text-end col-2 ">
             {toShamsiDate(coin.last_updated)}
           </span>
         </div>
       );
     });
   }, [coins, lastElementRef]);
-
   return (
     <div
       style={{ height: "650px" }}
-      className="overflow-y-auto no-scroll d-flex flex-column"
+      className="overflow-y-auto no-scroll d-flex flex-column overflow-visible"
     >
       {memoizedCoinsList}
       {selectedCoin && <Modal coin={selectedCoin} onClose={closeModal} />}
-      <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div className="w-100 h-100 d-flex align-items-center justify-content-center py-4 overflow-visible">
         {isLoading && <Spinner className="m-auto" />}
         {showLoadMore && !isLoading && (
           <Button className="px-10" onClick={handleLoadMore}>

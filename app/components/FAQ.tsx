@@ -1,6 +1,12 @@
 "use client";
 import { Accordion } from "react-bootstrap";
+import Image from "next/image";
 import "./FAQ.css";
+import plusImage from "../../public/images/plus.svg";
+import minusImage from "../../public/images/minus.svg";
+import minusDarkImage from "../../public/images/minus-dark.svg";
+import plusDarkImage from "../../public/images/plus-dark.svg";
+import { useState, useEffect } from "react";
 
 const faqData = [
   {
@@ -46,11 +52,39 @@ const faqData = [
 ];
 
 const FAQ = () => {
+  const [activeKey, setActiveKey] = useState("0");
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Read dark mode from cookies
+    const savedMode = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("darkMode="))
+      ?.split("=")[1];
+
+    setDarkMode(savedMode ? JSON.parse(savedMode) : false);
+
+    // Listen for dark mode toggle events
+    const handleStorageChange = () => {
+      const updatedMode = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("darkMode="))
+        ?.split("=")[1];
+
+      setDarkMode(updatedMode ? JSON.parse(updatedMode) : false);
+    };
+
+    window.addEventListener("darkModeToggle", handleStorageChange);
+    return () =>
+      window.removeEventListener("darkModeToggle", handleStorageChange);
+  }, []);
+
   return (
-    <section className="py-6">
+    <section className="pt-6 pb-sm-6 container px-0 px-md-2 ">
       <Accordion
-        defaultActiveKey="0"
-        className="custom-accordion text-bone bg-cream"
+        activeKey={activeKey}
+        onSelect={(key) => setActiveKey(key as string)}
+        className="custom-accordion text-bone bg-cream pill overflow-hidden py-23 px-3 px-sm-23"
       >
         <div className="w-100 d-flex flex-column align-items-center">
           <h3 className="mb-4 text-brown">FAQ</h3>
@@ -68,7 +102,25 @@ const FAQ = () => {
             key={index}
           >
             <Accordion.Header>
-              <span className="text-brown">{item.question}</span>
+              <div className="text-brown" style={{ width: "80%" }}>
+                {item.question}
+              </div>
+              <div style={{ width: "25px", height: "25px" }}>
+                <Image
+                  src={
+                    darkMode
+                      ? activeKey === `${index}`
+                        ? minusDarkImage
+                        : plusDarkImage
+                      : activeKey === `${index}`
+                      ? minusImage
+                      : plusImage
+                  }
+                  width={25}
+                  height={25}
+                  alt={activeKey === `${index}` ? "minus" : "plus"}
+                />
+              </div>
             </Accordion.Header>
             <Accordion.Body className="text-bone">{item.answer}</Accordion.Body>
           </Accordion.Item>

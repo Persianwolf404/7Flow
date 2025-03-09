@@ -59,7 +59,7 @@ const Carousel = () => {
   }, [emblaApi, autoplayCallback, onSelect]);
 
   return (
-    <section className="py-6 mb-6 image-container ">
+    <section className="py-6 mb-6 image-container d-none d-lg-block">
       <div className={styles.carousel}>
         <div className={styles.viewport} ref={emblaRef}>
           <div className={styles.container}>

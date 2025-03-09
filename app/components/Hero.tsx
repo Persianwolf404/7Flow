@@ -29,54 +29,70 @@ const Hero = () => {
   ];
 
   return (
-    <section className="w-100">
-      <section className="py-6 d-flex justify-content-between">
-        <div className="d-flex flex-column" style={{ width: "576px" }}>
-          <h1
-            style={{ fontWeight: "900", lineHeight: "56.4px" }}
-            className="text-blue fs-1 "
-          >
-            Manage your daily tasks better without all the stress.
-          </h1>
-          <p className="mt-5 mb-7 fs-4 text-gray">
-            Change the way you manage your tasks with our revolutionary project
-            management technology
-          </p>
-          <div className="d-flex gap-4">
-            <Button className="bg-green d-flex align-items-center">
-              Get Started <IoIosArrowForward className="ms-6 fs-5" />
-            </Button>
-            <Button className="bg-transparent text-blue px-7 border border-2 border-sky-blue py-3">
-              Schedule a Demo
-            </Button>
+    <section className="w-100 px-5 ">
+      <section className="py-5">
+        <div className="row justify-content-between align-items-lg-start align-items-center">
+          <div className="col-lg-6">
+            <div className="d-flex flex-column">
+              <h1
+                style={{ fontWeight: "900" }}
+                className="text-blue fs-1 f text-center text-lg-start"
+              >
+                Manage your <br /> daily tasks better without all the stress.
+              </h1>
+              <p className="mt-5 mb-5 fs-4 text-gray text-center text-lg-start">
+                Change the way you manage your tasks with our revolutionary
+                project management technology
+              </p>
+              <div className="d-flex flex-lg-row flex-column gap-4">
+                <Button className=" bg-green d-flex align-items-center">
+                  <span className="w-100">
+                    Get Started <IoIosArrowForward className="ms-3 fs-5" />
+                  </span>
+                </Button>
+                <Button className="bg-transparent text-blue px-4 border border-2 border-sky-blue py-3">
+                  Schedule a Demo
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-5">
+            <Image
+              src={DesktopImage}
+              width={450}
+              height={340}
+              alt="Task management dashboard preview"
+              className="w-100 h-auto mt-lg-0 mt-6"
+            />
           </div>
         </div>
-        <Image
-          src={DesktopImage}
-          width={450}
-          height={340}
-          alt="Task management dashboard preview"
-        />
       </section>
-      <section className="w-100 py-6 d-flex align-items-center flex-column">
-        <h2 className="text-dark-gray fs-2 fw-bolder mb-3">
-          Get more done in <span className="text-green">less time</span>
-        </h2>
-        <p className="fs-4 text-gray mb-6">Simple, fast, effortlessly.</p>
-        <div className="d-flex gap-9">
+      <section className="w-100 py-5">
+        <div className="row justify-content-center text-center">
+          <div className="col-12">
+            <h2 className="text-dark-gray fs-1 fw-bolder mb-3">
+              Get more done in <br className="d-md-none" />{" "}
+              <span className="text-green">less time</span>
+            </h2>
+            <p className="fs-4 text-gray mb-5">Simple, fast, effortlessly.</p>
+          </div>
+        </div>
+        <div className="row mx-auto gap-5 d-flex justify-content-center">
           {features.map((feature, index) => (
-            <div key={index} className="d-flex align-items-center gap-4">
-              <div
-                className="rounded-circle d-flex justify-content-center align-items-center"
-                style={{
-                  width: "64px",
-                  height: "64px",
-                  backgroundColor: feature.bgColor,
-                }}
-              >
-                {feature.icon}
+            <div key={index} className="col-auto  ">
+              <div className="d-flex align-items-center gap-4">
+                <div
+                  className="rounded-circle d-flex justify-content-center align-items-center"
+                  style={{
+                    width: "64px",
+                    height: "64px",
+                    backgroundColor: feature.bgColor,
+                  }}
+                >
+                  {feature.icon}
+                </div>
+                <h6 className="fw-bolder text-dark-blue">{feature.title}</h6>
               </div>
-              <h6 className="fw-bolder text-dark-blue">{feature.title}</h6>
             </div>
           ))}
         </div>
