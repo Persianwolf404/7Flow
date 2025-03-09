@@ -53,7 +53,7 @@ const Footer = () => {
               className="text-blue w-100 fs-2 mb-5 text-center text-md-start"
             >
               Risk-free 30 day trial to <br />{" "}
-              <span className="text-green">level up </span> your team's
+              <span className="text-green">level up </span> your {`team's`}
               productivity.
             </h2>
             <div className="row">
