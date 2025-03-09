@@ -258,7 +258,7 @@
     border-bottom: 1px solid #dee2e6 !important;
   }
 }
-@media (min-width: 576) {
+@media (min-width: 576px) {
   .pill {
     border-radius: 56px !important;
   }

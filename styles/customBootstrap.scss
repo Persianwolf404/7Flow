@@ -122,7 +122,7 @@ $container-min-widths: (
 }
 
 .pill {
-  @media (min-width: 576) {
+  @media (min-width: 576px) {
     border-radius: 56px !important;
   }
 }
@@ -238,7 +238,7 @@ $container-max-widths: (
   lg: 960px,
   xl: 1100px,
   xxl: 1140px
-    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 );
 
 // Import Bootstrap SCSS after defining your custom variables
