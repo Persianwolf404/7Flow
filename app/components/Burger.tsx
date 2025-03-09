@@ -43,6 +43,13 @@ function Burger() {
                 <Link
                   onClick={handleClose}
                   className="text-midnight-gray"
+                  href={"/"}
+                >
+                  Home
+                </Link>
+                <Link
+                  onClick={handleClose}
+                  className="text-midnight-gray"
                   href={"/#"}
                 >
                   Pricing
