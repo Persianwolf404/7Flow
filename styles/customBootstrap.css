@@ -264,6 +264,10 @@
   }
 }
 
+.center {
+  text-align: center;
+}
+
 .embla {
   overflow: hidden;
   width: 100%;
