@@ -78,11 +78,12 @@ $container-min-widths: (
   xl: 1100px,
   xxl: 1100px,
 );
+
 .pill {
   border-radius: 0;
 
   @media (min-width: 576) {
-    border-radius: 56px;
+    border-radius: 56px !important;
   }
 }
 
@@ -113,7 +114,6 @@ $spacers: (
   22: 29.37rem,
   23: 3.5rem,
   24: 2.5rem,
-
 );
 
 // Custom font sizes
@@ -127,7 +127,6 @@ $font-sizes: (
   7: 0.87rem,
   8: 0.75rem,
 );
-
 
 // Custom styles remain unchanged
 .embla {
@@ -199,7 +198,7 @@ $container-max-widths: (
   lg: 960px,
   xl: 1100px,
   xxl: 1140px
-    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // Increased from 1100px to be greater than xl,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 );
 
 // Import Bootstrap SCSS after defining your custom variables

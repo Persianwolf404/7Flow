@@ -36,7 +36,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <section className="container bg-background public-sans px-sm-3  px-0">
+    <section className="container bg-background public-sans px-sm-3 pill px-0">
       <div
         style={{
           height: "432px",
@@ -44,7 +44,7 @@ const Footer = () => {
             darkMode ? "pattern-dark" : "pattern"
           }.svg')`,
         }}
-        className="w-100 pill my-sm-6 bg-soft-blue bg-sky px-5 px-md-8 "
+        className="w-100  my-sm-6 bg-soft-blue bg-sky px-5 px-md-8 "
       >
         <div className="row h-100 align-items-center">
           <div className="col-12">
