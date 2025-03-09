@@ -42,7 +42,11 @@ function Burger() {
               <ul className="d-flex flex-column gap-5 p-0 m-0 list-unstyled fw-bolder fs-4">
                 <Link
                   onClick={handleClose}
-                  className="text-midnight-gray"
+                  className={
+                    pathname === "/"
+                      ? "text-green"
+                      : "text-midnight-gray"
+                  }
                   href={"/"}
                 >
                   Home
