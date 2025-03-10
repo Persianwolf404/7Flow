@@ -47,24 +47,22 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="d-flex justify-content-between mb-3">
-          <button
-            type="button"
-            className="btn-close position-absolute top-0 end-0 m-3 "
-            onClick={onClose}
-          />
           <h2 className="montserrat text-green fw-bolder fs-4 ms-4">
             7<span className="text-blue">currencies</span>.
           </h2>
         </div>
         <div className="px-4 w-100 mt-sm-6">
-          <div className="d-flex align-items-center w-100">
-            <Image
-              src={coin.image}
-              alt={coin.name}
-              width={64}
-              height={64}
-              className="rounded-circle overflow-visible"
-            />
+          <div className="align-items-center w-100">
+            <div className="d-flex modal-img" >
+              <Image
+                src={coin.image}
+                alt={coin.name}
+                width={64}
+                height={64}
+                className="w-100 h-100"
+              />
+            </div>
+
             <div className="fs-5 ms-3 d-flex align-items-center w-100">
               <span className="fw-normal me-1">{coin.name}</span>
               <span className="text-steel-gray fw-bold">

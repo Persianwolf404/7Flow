@@ -276,10 +276,10 @@ const Currencies = () => {
             minHeight: "64px",
           }}
           onClick={() => openModal(coin)}
-          className="d-flex fs-7 text-charcoal-blue pe-3 align-items-center ps-5  "
+          className="d-flex fs-7 text-charcoal-blue pe-3 align-items-center ps-3 ps-md-5  "
         >
           <span className="fw-bold text-steel-gray col-1">{index + 1}</span>
-          <div className="col-6 ">
+          <div className="col-sm-6 col-5  text-break  ">
             <span className="fw-semibold align-items-center gap-2 ">
               <Image
                 src={coin.image}
@@ -288,16 +288,16 @@ const Currencies = () => {
                 height={32}
                 className="rounded-circle me-3"
               />
-              {displayName}
+              {coin.name}
               <span className="text-steel-gray ms-1">
                 {coin.symbol.toUpperCase()}
               </span>
             </span>
           </div>
-          <span className="fw-semibold text-center col-3">
+          <span className="fw-semibold text-end text-center  col-3 ">
             {coin.current_price.toLocaleString()}
           </span>
-          <span className="fw-semibold text-end col-2 ">
+          <span className="fw-semibold text-end col-3 col-sm-2">
             {toShamsiDate(coin.last_updated)}
           </span>
         </div>
