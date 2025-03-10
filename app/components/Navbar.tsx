@@ -13,7 +13,7 @@ const Navbar = () => {
       style={{ height: "80px" }}
       className="border-bottom border-cloudy-blue "
     >
-      <div className="container h-100 d-flex align-items-center ">
+      <div className="container h-100 d-flex px-5 px-sm-0 align-items-center ">
         <Link
           style={{ zIndex: "10000" }}
           href={"/"}

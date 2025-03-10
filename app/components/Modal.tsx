@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import styles from "./Modal.module.scss";
 import moment from "moment-jalaali"; // If you need date formatting
 import Image from "next/image";
+import { RxCross2 } from "react-icons/rx";
 
 interface ModalProps {
   coin: {
@@ -46,24 +47,30 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
         className={`${styles.modal} bg-cream`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="d-flex justify-content-between mb-3">
+        <div className="d-flex align-items-center justify-content-between mb-3">
           <h2 className="montserrat text-green fw-bolder fs-4 ms-4">
             7<span className="text-blue">currencies</span>.
           </h2>
+          <button
+            style={{ width: "38px", height: "38px", zIndex: "10000" }}
+            className={`d-flex border  border-sky-blue bg-transparent rounded-circle justify-content-center align-items-center z-5`}
+            onClick={onClose}
+          >
+            <RxCross2 className=" text-blue  fs-4 " />
+          </button>
         </div>
         <div className="px-4 w-100 mt-sm-6">
-          <div className="align-items-center w-100">
-            <div className="d-flex modal-img" >
+          <div className="d-flex align-items-center w-100">
+            <div className="d-flex modal-img ">
               <Image
                 src={coin.image}
                 alt={coin.name}
                 width={64}
                 height={64}
-                className="w-100 h-100"
+                className="w-100 h-100 rounded-circle"
               />
             </div>
-
-            <div className="fs-5 ms-3 d-flex align-items-center w-100">
+            <div className="fs-5 ms-3 d-flex align-items-center w-auto flex-grow-1 ">
               <span className="fw-normal me-1">{coin.name}</span>
               <span className="text-steel-gray fw-bold">
                 {coin.symbol.toUpperCase()}
