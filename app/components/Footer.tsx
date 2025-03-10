@@ -57,15 +57,15 @@ const Footer = () => {
               productivity.
             </h2>
             <div className="row">
-              <div className="col-12 col-lg-8">
+              <div className="col-12 col-lg-9">
                 <p className="fs-4 text-ocean-blue text-center text-md-start">
                   Get started now and take advantage of our 30 day free trial{" "}
                   <br />
                   today. No credit card required.
                 </p>
               </div>
-              <div className="col-12 col-lg-4 d-flex justify-content-center justify-content-lg-end align-items-center">
-                <Button className="bg-green mt-5 col-12 col-sm-9 mt-lg-0 d-flex align-items-center gap-4 justify-content-center jusify-content-md-start">
+              <div className="col-12 col-lg-3 d-flex justify-content-center justify-content-lg-end align-items-center">
+                <Button className="bg-green mt-5 col-12 col-sm-12 mt-lg-0 d-flex align-items-center gap-4 justify-content-center jusify-content-md-start">
                   <span>Get Started</span>
                   <IoIosArrowForward className="fs-4" />
                 </Button>

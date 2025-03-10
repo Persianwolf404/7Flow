@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
             7<span className="text-blue">currencies</span>.
           </h2>
         </div>
-        <div className="px-4 w-100">
+        <div className="px-4 w-100 mt-sm-6">
           <div className="d-flex align-items-center w-100">
             <Image
               src={coin.image}
@@ -70,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
               <span className="text-steel-gray fw-bold">
                 {coin.symbol.toUpperCase()}
               </span>
-              <span className="fw-semibold fs-6 ms-auto text-gray d-none">
+              <span className="fw-semibold fs-6 ms-auto text-gray d-none d-sm-inline">
                 Updated: {toShamsiDate(coin.last_updated)}
               </span>
             </div>
@@ -80,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({ coin, onClose }) => {
             <span className="text-green">USD</span>
           </h2>
         </div>
-        <div className="w-100 d-flex justify-content-end">
+        <div className="w-100 d-flex justify-content-end d-sm-none">
           <span className="fw-semibold fs-6 ms-auto text-gray mt-7 ms-auto">
             Updated: {toShamsiDate(coin.last_updated)}
           </span>

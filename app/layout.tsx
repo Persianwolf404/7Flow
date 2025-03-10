@@ -30,8 +30,6 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const savedMode = (await cookieStore).get("darkMode");
   const initialDarkMode = savedMode ? JSON.parse(savedMode.value) : false;
-
-  console.log(initialDarkMode);
   return (
     <html
       lang="en"
