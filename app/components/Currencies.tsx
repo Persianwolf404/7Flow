@@ -263,9 +263,7 @@ const Currencies = () => {
   const memoizedCoinsList = useMemo(() => {
     return coins.map((coin, index) => {
       const isLastElement = coins.length === index + 1;
-      // Add name truncation logic
-      const displayName =
-        coin.name.length > 15 ? `${coin.name.substring(0, 7)}...` : coin.name;
+   
 
       return (
         <div

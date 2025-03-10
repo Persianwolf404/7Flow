@@ -65,7 +65,7 @@ function Burger() {
           opts as AddEventListenerOptions
         );
       } catch (e) {
-        // Passive not supported
+        console.log(e)
       }
 
       wheelOpt = supportsPassive ? { passive: false } : false;
