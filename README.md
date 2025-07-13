@@ -1,6 +1,6 @@
 # 7flow
 
-**7flow** is a modern, mobile-responsive cryptocurrency website focused on **UI performance**, **smart caching**, and **SEO best practices**. Designed for lightning-fast loading and user experience on both desktop and mobile, it demonstrates how crypto platforms should look and feel in 2025.
+**7flow** is a modern, mobile-responsive cryptocurrency website focused on **UI performance**, **smart caching**, and **SEO best practices**. Designed for lightning-fast loading and user experience on both desktop and mobile
 
 ---
 
@@ -36,8 +36,8 @@
 
 ## 🛠️ Tech Stack
 
-- **HTML5 / CSS3 / JS (ES6+)**
-- **Modern Frontend Framework** (e.g., React or Next.js) *(update if needed)*
+- **HTML5 / BOOTSTRAP / CSS3 / TYPESCRIPT (ES6+)**
+- *NEXT JS*
 - **Responsive Design**
 - **Lighthouse Best Practices**
 
