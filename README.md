@@ -4,6 +4,8 @@
 
 ---
 
+[🌐 Visit **7Flow** Website ](https://7host-portfolio.vercel.app/)
+
 ## 🔥 Preview
 
 ![7flow Preview](/public/7flow.gif)
@@ -23,6 +25,9 @@
 
 - 🎨 **Modern UI**  
   Clean, minimal User Interface
+
+- 🌑 **Dark Mode Toggle**  
+  Seamless toggle between light and dark themes with system preference detection
 
 ---
 
@@ -52,3 +57,4 @@ git clone https://github.com/your-username/7flow.git
 cd 7flow
 npm install
 npm run dev
+
