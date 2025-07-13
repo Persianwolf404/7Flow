@@ -28,7 +28,7 @@
 
 ## 📊 Lighthouse Score
 
-![Lighthouse Report](/public/lighthouse.avif)
+![Lighthouse Report](/public/lighthouse-report.png)
 
 > Achieved near-perfect scores across performance, accessibility, best practices, and SEO.
 
@@ -37,7 +37,7 @@
 ## 🛠️ Tech Stack
 
 - **HTML5 / BOOTSTRAP / CSS3 / TYPESCRIPT (ES6+)**
-- *NEXT JS*
+- **NEXT JS**
 - **Responsive Design**
 - **Lighthouse Best Practices**
 
