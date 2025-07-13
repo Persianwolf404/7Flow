@@ -19,10 +19,10 @@
   Looks sharp and clean on all screen sizes, from mobile to ultra-wide desktops.
 
 - 🧠 **SEO Optimized**  
-  Semantic HTML, Open Graph tags, and fast Lighthouse scores.
+  Semantic HTML, and fast Lighthouse scores.
 
 - 🎨 **Modern UI**  
-  Clean, minimal, and inspired by fintech-style dashboards.
+  Clean, minimal User Interface
 
 ---
 
